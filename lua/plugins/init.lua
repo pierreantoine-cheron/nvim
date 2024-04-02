@@ -6,7 +6,6 @@ return {
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth', -- detect format conventions in the current file: tabs/spaces, etc.
 
-  -- NOTE: This is where your plugins related to LSP can be installed.
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -31,8 +30,45 @@ return {
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    opts = {}
+  },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = false }
+  },
+
+  -- sticky classes/functions definitions
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    opts = {}
+  },
+
+  -- list diagnostics
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {},
+  },
+
+  -- better ui
+  {
+    'stevearc/dressing.nvim',
+    opts = {}
+  },
+
+  -- file management as text file
+  {
+    'stevearc/oil.nvim',
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("oil").setup()
+      vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+    end
+  },
 }
