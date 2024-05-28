@@ -29,9 +29,6 @@ return {
         require('luasnip.loaders.from_vscode').lazy_load()
       end,
     },
-
-    -- fish shell completions
-    'mtoohey31/cmp-fish',
   },
   config = function()
     local cmp = require 'cmp'
