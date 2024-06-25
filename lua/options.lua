@@ -68,9 +68,3 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 -- Show which line your cursor is on
 vim.opt.cursorline = true
 
--- if on windows
-if vim.fn.has('windows') then
-  vim.opt.shell = "pwsh.exe"
-  vim.opt.shellcmdflag = "-command"
-  -- vim.opt.shellquote = "\""
-end

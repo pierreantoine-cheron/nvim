@@ -3,6 +3,8 @@ require("prelude")
 -- [[ Install `lazy.nvim` plugin manager ]]
 require("plugin_manager")
 
+require("os_specifics")
+
 -- [[ Configure plugins ]]
 require('lazy').setup({
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/plugins/*.lua`
