@@ -11,7 +11,7 @@ return {
     { 'j-hui/fidget.nvim',       opts = {} },
 
     -- Additional lua configuration, makes nvim stuff amazing!
-    { 'folke/neodev.nvim',       opts = {} }, -- better lsp for neovim config
+    -- { 'folke/neodev.nvim',       opts = {} }, -- better lsp for neovim config, obsolete, replaced by lazydev
   },
   config = function()
     vim.api.nvim_create_autocmd('LspAttach', {
