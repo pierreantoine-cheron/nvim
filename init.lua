@@ -13,6 +13,8 @@ require('lazy').setup({
   { import = 'plugins' },
 }, {})
 
+require("generated.theme")
+
 -- [[ Setting options ]]
 require("options")
 
