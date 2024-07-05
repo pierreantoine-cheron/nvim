@@ -204,6 +204,14 @@ function SetTelescopeKeymap(builtins)
   -- open file_browser with the path of the current buffer
   vim.keymap.set("n", "<space>sc", ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
     { desc = 'Explore from [C]urrent file' })
+
+  vim.keymap.set('n', '<leader>sq', function()
+    builtins.live_grep({
+      glob_pattern = { "!node_modules/*", "!build/*"},
+      grep_open_files = true,
+      prompt_title = 'Live Grep ignoring build folders',
+    })
+  end, { desc = '[S]earch [Q] by Grep ignoring build folders' })
 end
 
 function SetDapKeymap(dap)
