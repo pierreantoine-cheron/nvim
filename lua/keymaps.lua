@@ -208,6 +208,14 @@ function SetTelescopeKeymap(builtins)
   vim.keymap.set('n', '<leader>sn', function()
     builtins.find_files { cwd = vim.fn.stdpath 'config' }
   end, { desc = '[S]earch [N]eovim files' })
+
+  vim.keymap.set('n', '<leader>sq', function()
+    builtins.live_grep({
+      glob_pattern = { "!node_modules/*", "!build/*"},
+      grep_open_files = true,
+      prompt_title = 'Live Grep ignoring build folders',
+    })
+  end, { desc = '[S]earch [Q] by Grep ignoring build folders' })
 end
 
 function SetDapKeymap(dap)
