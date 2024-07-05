@@ -142,10 +142,7 @@ local themes_plugins = {
     },
   },
   {
-    plugin = {
-      'uloco/bluloco.nvim',
-      dependencies = { 'rktjmp/lush.nvim' },
-    },
+    plugin = { 'uloco/bluloco.nvim' },
     themery_config = {
       name = "Bluloco",
       variations = {

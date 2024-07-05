@@ -20,6 +20,7 @@ return {
     },
   },
 
+  -- NOTE: `opts = {}` is the same as calling `require('plugin').setup({})`
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
@@ -39,7 +40,6 @@ return {
   {
     'folke/todo-comments.nvim',
     event = 'VimEnter',
-    dependencies = { 'nvim-lua/plenary.nvim' },
     opts = { signs = false }
   },
 
@@ -52,7 +52,6 @@ return {
   -- list diagnostics
   {
     "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {},
   },
 
@@ -65,7 +64,6 @@ return {
   -- file management as text file
   {
     'stevearc/oil.nvim',
-    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("oil").setup()
       vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })

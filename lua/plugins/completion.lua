@@ -1,52 +1,56 @@
 return {
+  -- Snippet Engine & its associated nvim-cmp source
+  {
+    'L3MON4D3/LuaSnip',
+    build = (function()
+      -- Build Step is needed for regex support in snippets
+      -- This step is not supported in many windows environments
+      -- Remove the below condition to re-enable on windows
+      if vim.fn.has 'win32' == 1 then
+        return
+      end
+      return 'make install_jsregexp'
+    end)(),
+    lazy = true
+  },
+  { -- snippet provider for lua language
+    'saadparwaiz1/cmp_luasnip',
+    lazy = true
+  },
+  { -- snippet for various languages
+    'rafamadriz/friendly-snippets',
+    config = function()
+      require('luasnip.loaders.from_vscode').lazy_load()
+    end,
+  },
+  {
+    -- Adds LSP completion capabilities
+    'hrsh7th/cmp-nvim-lsp',
+    lazy = true
+  },
+  {
+    'hrsh7th/cmp-path',
+    lazy = true
+  },
   {
     "folke/lazydev.nvim",
     ft = "lua", -- only load on lua files
     opts = {
-    --   library = {
-    --     -- See the configuration section for more details
-    --     -- Load luvit types when the `vim.uv` word is found
-    --     { path = "luvit-meta/library", words = { "vim%.uv" } },
-    --   },
+      --   library = {
+      --     -- See the configuration section for more details
+      --     -- Load luvit types when the `vim.uv` word is found
+      --     { path = "luvit-meta/library", words = { "vim%.uv" } },
+      --   },
     },
   },
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
     event = "InsertEnter",
-    dependencies = {
-      -- Snippet Engine & its associated nvim-cmp source
-      {
-        'L3MON4D3/LuaSnip',
-        build = (function()
-          -- Build Step is needed for regex support in snippets
-          -- This step is not supported in many windows environments
-          -- Remove the below condition to re-enable on windows
-          if vim.fn.has 'win32' == 1 then
-            return
-          end
-          return 'make install_jsregexp'
-        end)(),
-      },
-      'saadparwaiz1/cmp_luasnip',
-
-      -- Adds LSP completion capabilities
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-path',
-
-      -- Adds a number of user-friendly snippets
-      {
-        'rafamadriz/friendly-snippets',
-        config = function()
-          require('luasnip.loaders.from_vscode').lazy_load()
-        end,
-      },
-    },
     config = function()
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
-
 
       cmp.setup {
         snippet = {
@@ -58,10 +62,6 @@ return {
           completeopt = 'menu,menuone,noinsert',
         },
         mapping = cmp.mapping.preset.insert {
-
-
-
-
           -- Select the [n]ext item
           ['<C-n>'] = cmp.mapping.select_next_item(),
           -- Select the [p]revious item
