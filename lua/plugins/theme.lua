@@ -278,11 +278,14 @@ local themery_themes = get_themes_list()
 
 local theme_manager = {
   'zaldih/themery.nvim',
-  opts = {
-    themes = themery_themes,
-    themeConfigFile = vim.fn.stdpath('config') .. "/lua/generated/theme.lua", -- location of the file that will be modified for persistence purposes
-    livePreview = true,                                                       -- Apply theme while browsing. Default to true.
-  },
+  config = function()
+    require("themery").setup({
+      themes = themery_themes,
+      themeConfigFile = vim.fn.stdpath('config') .. "/lua/generated/theme.lua", -- location of the file that will be modified for persistence purposes
+      livePreview = true,                                                       -- Apply theme while browsing. Default to true.
+    })
+    vim.keymap.set('n', '<leader>st', ':Themery<cr>', { desc = '[S]earch [T]hemes' })
+  end
 }
 
 local plugins = { theme_manager }
