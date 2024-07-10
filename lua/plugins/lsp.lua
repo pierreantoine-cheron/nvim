@@ -1,10 +1,5 @@
 return {
   {
-    'williamboman/mason.nvim',
-    config = true,
-    lazy = true
-  },
-  {
     'williamboman/mason-lspconfig.nvim',
     lazy = true
   },

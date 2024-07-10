@@ -13,8 +13,9 @@ return {
   },
   {
     -- required by nvim-dap
-    -- Installs the debug adapters for you
+    -- LSP, debug adapters, linters, formatters package manager
     'williamboman/mason.nvim',
+    config = true,
     lazy = true
   },
   {
