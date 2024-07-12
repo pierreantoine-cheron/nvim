@@ -129,6 +129,8 @@ return {
             -- diagnostics = { disable = { 'missing-fields' } },
           },
         },
+
+        omnisharp = {}
       }
 
       -- ensure the servers and tools above are installed
