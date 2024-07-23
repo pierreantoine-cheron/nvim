@@ -284,7 +284,7 @@ local theme_manager = {
       themeConfigFile = vim.fn.stdpath('config') .. "/lua/generated/theme.lua", -- location of the file that will be modified for persistence purposes
       livePreview = true,                                                       -- Apply theme while browsing. Default to true.
     })
-    vim.keymap.set('n', '<leader>st', ':Themery<cr>', { desc = '[S]earch [T]hemes' })
+    SetThemesKeymap()
   end
 }
 

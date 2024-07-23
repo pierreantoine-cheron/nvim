@@ -5,10 +5,12 @@ require("plugin_manager")
 
 require("os_specifics")
 
+-- [[ Basic Keymaps ]]
+require("keymaps")
+
 -- [[ Configure plugins ]]
 require('lazy').setup({
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/plugins/*.lua`
-  --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   { import = 'plugins' },
 }, {})
@@ -17,9 +19,6 @@ require("generated.theme")
 
 -- [[ Setting options ]]
 require("options")
-
--- [[ Basic Keymaps ]]
-require("keymaps")
 
 require("ft")
 
