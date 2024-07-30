@@ -1,12 +1,15 @@
 require("prelude")
 
--- [[ Install `lazy.nvim` plugin manager ]]
-require("plugin_manager")
-
 require("os_specifics")
+
+-- [[ Setting options ]]
+require("options")
 
 -- [[ Basic Keymaps ]]
 require("keymaps")
+
+-- [[ Install `lazy.nvim` plugin manager ]]
+require("plugin_manager")
 
 -- [[ Configure plugins ]]
 require('lazy').setup({
@@ -17,8 +20,7 @@ require('lazy').setup({
 
 require("generated.theme")
 
--- [[ Setting options ]]
-require("options")
+require("autocommands")
 
 require("ft")
 

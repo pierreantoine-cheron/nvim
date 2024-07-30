@@ -1,6 +1,4 @@
 -- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
 
 -- Set highlight on search
 vim.opt.hlsearch = true
@@ -24,14 +22,13 @@ vim.opt.inccommand = "split"
 vim.opt.showmode = false
 
 -- Enable mouse mode
--- vim.opt.mouse = 'a' -- allow to drag separators
+vim.opt.mouse = 'v'
 -- vim.opt.mousescroll = 0
-vim.opt.mouse = ''
 
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.opt.clipboard = 'unnamedplus'
+-- vim.opt.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.opt.breakindent = true
