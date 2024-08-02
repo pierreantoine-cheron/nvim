@@ -281,7 +281,6 @@ local theme_manager = {
   config = function()
     require("themery").setup({
       themes = themery_themes,
-      themeConfigFile = vim.fn.stdpath('config') .. "/lua/generated/theme.lua", -- location of the file that will be modified for persistence purposes
       livePreview = true,                                                       -- Apply theme while browsing. Default to true.
     })
     SetThemesKeymap()

@@ -18,8 +18,6 @@ require('lazy').setup({
   { import = 'plugins' },
 }, {})
 
-require("generated.theme")
-
 require("autocommands")
 
 require("ft")
