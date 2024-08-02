@@ -66,11 +66,6 @@ function SetLspKeymap(event)
   vim.keymap.set('n', '<leader>D', require('telescope.builtin').lsp_type_definitions,
     { buffer = event.buf, desc = 'Lsp: Type [D]efinition' })
 
-  -- Fuzzy find all the symbols in your current document.
-  --  Symbols are things like variables, functions, types, etc.
-  vim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols,
-    { buffer = event.buf, desc = 'Lsp: [D]ocument [S]ymbols' })
-
   -- Fuzzy find all the symbols in your current workspace.
   --  Similar to document symbols, except searches over your entire project.
   vim.keymap.set('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols,
