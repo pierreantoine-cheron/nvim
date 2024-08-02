@@ -49,4 +49,10 @@ return {
     'rktjmp/lush.nvim',
     lazy = true
   },
+  {
+    -- required by which-key
+    -- icons
+    'echasnovski/mini.icons',
+    version = '*'
+  },
 }
