@@ -23,7 +23,6 @@ return {
       { "<leader>t_", hidden = true },
       { "<leader>w",  group = "[W]orkspace" },
       { "<leader>w_", hidden = true },
-      { "<leader>",   group = "VISUAL <leader>", mode = "v" },
       { "<leader>h",  desc = "Git [H]unk",       mode = "v" },
     })
   end,
