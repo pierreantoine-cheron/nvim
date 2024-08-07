@@ -30,7 +30,7 @@ vim.opt.mouse = 'v'
 --  See `:help 'clipboard'`
 -- vim.opt.clipboard = 'unnamedplus'
 
--- Enable break indent
+-- Indent wrapped line parts
 vim.opt.breakindent = true
 
 -- Save undo history
