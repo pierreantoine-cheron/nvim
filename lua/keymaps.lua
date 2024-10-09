@@ -134,10 +134,10 @@ function SetGitKeymap(bufnr, gs)
 
   -- Actions
   -- visual mode
-  vim.keymap.set('v', '<leader>hs', function()
+  vim.keymap.set('v', '<leader>ghs', function()
     gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
   end, { buffer = bufnr, desc = 'stage git hunk' })
-  vim.keymap.set('v', '<leader>hr', function()
+  vim.keymap.set('v', '<leader>ghr', function()
     gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
   end, { buffer = bufnr, desc = 'reset git hunk' })
   -- normal mode
