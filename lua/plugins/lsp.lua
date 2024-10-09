@@ -54,7 +54,7 @@ return {
 
         rust_analyzer = {},
 
-        tsserver = {},
+        ts_ls = {},
 
         html = {},
 
