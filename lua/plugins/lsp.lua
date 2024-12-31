@@ -116,6 +116,7 @@ return {
       local mason_free_servers = {
         gdscript = {},
         biome = {},
+        vtsls = {},
       }
 
       -- for key, _ in pairs(mason_free_servers) do
