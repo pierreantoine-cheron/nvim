@@ -7,66 +7,78 @@
 -- kickstart.nvim and not kitchen-sink.nvim ;)
 
 return {
-  -- Add your own debuggers here
-  {
-    'mfussenegger/nvim-dap',
+  { 
+    -- Creates a beautiful debugger UI
+    "rcarriga/nvim-dap-ui", 
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      {
+        'mfussenegger/nvim-dap',
+        dependencies = {
+          -- Installs the debug adapters for you
+          {'jay-babu/mason-nvim-dap.nvim', dependencies = {
+            { 'mason-org/mason.nvim', opts = {} },
+          }},
+        }
+      },
+    },
     config = function()
-      local dap = require 'dap'
-      local dapui = require 'dapui'
+    local dap = require 'dap'
+    local dapui = require 'dapui'
 
+    ---@diagnostic disable-next-line: missing-fields
+    require('mason-nvim-dap').setup {
+      -- Makes a best effort to setup the various debuggers with
+      -- reasonable debug configurations
+      automatic_setup = true,
+
+      -- You can provide additional configuration to the handlers,
+      -- see mason-nvim-dap README for more information
+      handlers = {},
+
+      -- You'll need to check that you have the required things installed
+      -- online, please don't ask me how to install them :)
+      ensure_installed = {
+        -- Update this to ensure that you have the debuggers for the langs you want
+        -- 'delve', -- golang
+      },
+    }
+
+    -- Basic debugging keymaps, feel free to change to your liking!
+    SetDapKeymap(dap)
+
+    -- Dap UI setup
+    -- For more information, see |:help nvim-dap-ui|
+    ---@diagnostic disable-next-line: missing-fields
+    dapui.setup {
+      -- Set icons to characters that are more likely to work in every terminal.
+      --    Feel free to remove or use ones that you like more! :)
+      --    Don't feel like these are good choices.
+      icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
       ---@diagnostic disable-next-line: missing-fields
-      require('mason-nvim-dap').setup {
-        -- Makes a best effort to setup the various debuggers with
-        -- reasonable debug configurations
-        automatic_setup = true,
-
-        -- You can provide additional configuration to the handlers,
-        -- see mason-nvim-dap README for more information
-        handlers = {},
-
-        -- You'll need to check that you have the required things installed
-        -- online, please don't ask me how to install them :)
-        ensure_installed = {
-          -- Update this to ensure that you have the debuggers for the langs you want
-          -- 'delve', -- golang
+      controls = {
+        icons = {
+          pause = '⏸',
+          play = '▶',
+          step_into = '⏎',
+          step_over = '⏭',
+          step_out = '⏮',
+          step_back = 'b',
+          run_last = '▶▶',
+          terminate = '⏹',
+          disconnect = '⏏',
         },
-      }
+      },
+    }
 
-      -- Basic debugging keymaps, feel free to change to your liking!
-      SetDapKeymap(dap)
+    SetDapUiKeymap(dapui)
 
-      -- Dap UI setup
-      -- For more information, see |:help nvim-dap-ui|
-      ---@diagnostic disable-next-line: missing-fields
-      dapui.setup {
-        -- Set icons to characters that are more likely to work in every terminal.
-        --    Feel free to remove or use ones that you like more! :)
-        --    Don't feel like these are good choices.
-        icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
-        ---@diagnostic disable-next-line: missing-fields
-        controls = {
-          icons = {
-            pause = '⏸',
-            play = '▶',
-            step_into = '⏎',
-            step_over = '⏭',
-            step_out = '⏮',
-            step_back = 'b',
-            run_last = '▶▶',
-            terminate = '⏹',
-            disconnect = '⏏',
-          },
-        },
-      }
+    dap.listeners.after.event_initialized['dapui_config'] = dapui.open
+    dap.listeners.before.event_terminated['dapui_config'] = dapui.close
+    dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
-      SetDapUiKeymap(dapui)
-
-      dap.listeners.after.event_initialized['dapui_config'] = dapui.open
-      dap.listeners.before.event_terminated['dapui_config'] = dapui.close
-      dap.listeners.before.event_exited['dapui_config'] = dapui.close
-
-      -- Install golang specific config
-      -- require('dap-go').setup()
-    end,
+    -- Install golang specific config
+    -- require('dap-go').setup()
+  end,
   }
 }
