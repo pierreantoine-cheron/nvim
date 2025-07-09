@@ -37,13 +37,6 @@ return {
     enabled = vim.g.have_nerd_font
   },
   {
-    -- required by nvim-lspconfig
-    -- Display notifications
-    'j-hui/fidget.nvim',
-    opts = {},
-    lazy = true
-  },
-  {
     -- required by bluloco
     -- colorscheme creation aid
     'rktjmp/lush.nvim',

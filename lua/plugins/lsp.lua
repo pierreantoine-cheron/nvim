@@ -1,11 +1,27 @@
 return {
-  {
-    'williamboman/mason-lspconfig.nvim',
-    lazy = true
-  },
   -- LSP Configuration & Plugins
   {
     'neovim/nvim-lspconfig',
+    dependencies = {
+      {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+          library = {
+            -- See the configuration section for more details
+            -- Load luvit types when the `vim.uv` word is found
+            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            "nvim-dap-ui",
+          },
+        },
+      },
+      { 'mason-org/mason.nvim', opts = {} },
+      'mason-org/mason-lspconfig.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
+
+      -- Useful status updates for LSP.
+      { 'j-hui/fidget.nvim', opts = {} },
+    },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
@@ -49,12 +65,10 @@ return {
       --
       --  If you want to override the default filetypes that your language server will attach to you can
       --  define the property 'filetypes' to thenmap in question.
-      local mason_managed_servers = {
+      local servers = {
         clangd = {},
 
         rust_analyzer = {},
-
-        ts_ls = {},
 
         html = {},
 
@@ -67,65 +81,36 @@ return {
           },
         },
 
-        omnisharp = {}
-      }
+        omnisharp = {},
 
-      -- ensure the servers and tools above are installed
-      -- mason is a lsp package manager ?
-      -- mason-lspconfig requires that these setup functions are called in this order
-      -- before setting up the servers.
-      require('mason').setup()
-
-
-      -- Ensure the servers above are installed
-      local mason_lspconfig = require('mason-lspconfig')
-
-      local function get_setup_for_server_list(server_list)
-        return function(server_name)
-          local server = server_list[server_name] or {}
-          -- This handles overriding only values explicitly passed
-          -- by the server configuration above. Useful when disabling
-          -- certain features of an LSP (for example, turning off formatting for tsserver)
-          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          require('lspconfig')[server_name].setup(server)
-        end
-      end
-
-      local mason_managed_servers_setup = get_setup_for_server_list(mason_managed_servers)
-      mason_lspconfig.setup({
-        ensure_installed = vim.tbl_keys(mason_managed_servers),
-        -- handlers = mason_managed_servers_setup
-      })
-
-      mason_lspconfig.setup_handlers({
-        mason_managed_servers_setup
-      })
-      -- local function language_server_setup(server_name)
-      --   require('lspconfig')[server_name].setup {
-      --     capabilities = capabilities,
-      --     on_attach = on_attach,
-      --     settings = servers[server_name],
-      --     filetypes = (servers[server_name] or {}).filetypes,
-      --   }
-      -- end
-
-      -- mason_lspconfig.setup_handlers {
-      --   language_server_setup
-      -- }
-
-      local mason_free_servers = {
-        gdscript = {},
         biome = {},
         vtsls = {},
       }
 
-      -- for key, _ in pairs(mason_free_servers) do
-      --   language_server_setup(key)
-      -- end
+      local tools = {
+        -- add here other tools you want mason to install
+      }
 
-      for key, _ in pairs(mason_free_servers) do
-        local mason_free_servers_setup = get_setup_for_server_list(mason_free_servers)
-        mason_free_servers_setup(key)
-      end
+      -- ensure the servers and tools above are installed
+      local ensure_installed = vim.tbl_keys(servers or {})
+      -- mason allows to install various tools, including LSPs and formatters
+      vim.list_extend(ensure_installed, tools)
+      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+      require('mason-lspconfig').setup {
+        ensure_installed = {}, -- populated mason-tool-installer
+        automatic_installation = false,
+        handlers = {
+          function(server_name)
+            local server = servers[server_name] or {}
+            -- This handles overriding only values explicitly passed
+            -- by the server configuration above. Useful when disabling
+            -- certain features of an LSP (for example, turning off formatting for ts_ls)
+            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            require('lspconfig')[server_name].setup(server)
+          end,
+        },
+      }
     end
-  } }
+  }
+}
