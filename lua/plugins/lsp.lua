@@ -83,13 +83,19 @@ return {
 
         omnisharp = {},
 
-        biome = {},
         vtsls = {},
+      }
+
+      -- server you dont want mason to install, manually managed
+      local no_install_servers = {
+        biome = {},
       }
 
       local tools = {
         -- add here other tools you want mason to install
       }
+
+      local mason_servers = vim.tbl_keys(servers)
 
       -- ensure the servers and tools above are installed
       local ensure_installed = vim.tbl_keys(servers or {})
@@ -98,7 +104,7 @@ return {
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
-        ensure_installed = {}, -- populated mason-tool-installer
+        ensure_installed = mason_servers,
         automatic_installation = false,
         handlers = {
           function(server_name)
@@ -111,6 +117,11 @@ return {
           end,
         },
       }
+
+      for name, opts in pairs(no_install_servers) do
+        opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, opts.capabilities or {})
+        require("lspconfig")[name].setup(opts)
+      end
     end
   }
 }
