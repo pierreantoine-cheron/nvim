@@ -18,6 +18,8 @@ require('lazy').setup({
   { import = 'plugins' },
 }, {})
 
+require("lsp")
+
 require("autocommands")
 
 require("ft")

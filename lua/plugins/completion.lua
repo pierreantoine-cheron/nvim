@@ -26,7 +26,22 @@ return {
   {
     -- Adds LSP completion capabilities
     'hrsh7th/cmp-nvim-lsp',
-    lazy = true
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      { "folke/lazydev.nvim",                  opts = {} },
+      { "antosha417/nvim-lsp-file-operations", config = true },
+    },
+    config = function()
+      -- import cmp-nvim-lsp plugin
+      local cmp_nvim_lsp = require("cmp_nvim_lsp")
+
+      -- used to enable autocompletion (assign to every lsp server config)
+      local capabilities = cmp_nvim_lsp.default_capabilities()
+
+      vim.lsp.config("*", {
+        capabilities = capabilities,
+      })
+    end,
   },
   {
     'hrsh7th/cmp-path',
@@ -126,4 +141,5 @@ return {
         },
       }
     end
-  } }
+  }
+}
